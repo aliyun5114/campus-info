@@ -15,6 +15,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ossClient = new OssClient(
             'aliyun5114.oss-cn-hangzhou.aliyuncs.com' 
         );
+
+        $ossKey = getenv('OSS_KEY') ?: die('OSS_KEY环境变量未设置');
+        $ossSecret = getenv('OSS_SECRET') ?: die('OSS_SECRET环境变量未设置');
+        $ossClient = new OssClient($ossKey, $ossSecret, 'oss-cn-hangzhou.aliyuncs.com');
         
         try {
             $ossClient->uploadFile('campus-info-oss', $object, $file['tmp_name']);
